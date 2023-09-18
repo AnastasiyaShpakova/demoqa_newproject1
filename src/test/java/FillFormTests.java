@@ -1,23 +1,26 @@
 import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class FillFormTests {
-        {
+
+    @BeforeAll
+    static void beforeAll() {
+        Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        }
+    }
 @Test
     void successfulFillFormTest() {
             open("https://demoqa.com/automation-practice-form/");
-        $("[id=firstName]").setValue("Anastasiya");
-        $("[id=lastName]").setValue("Shpakova");
-        $("[id=userEmail]").setValue("test1@bk.ru");
+        $("#firstName").setValue("Anastasiya");
+        $("#lastName").setValue("Shpakova");
+        $("#userEmail").setValue("test1@bk.ru");
         $("#genterWrapper").$(byText("Female")).click();
-        $("[id=userNumber]").setValue("9991002030");
+        $("#userNumber").setValue("9991002030");
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("September");
         $(".react-datepicker__year-select").selectOption("1987");
@@ -25,18 +28,29 @@ public class FillFormTests {
         $("#subjectsInput").setValue("Maths").pressEnter();
         $("#hobbiesWrapper").$(byText("Music")).click();
         $("#uploadPicture").uploadFromClasspath("nature2.jpg");
-        $("[id=currentAddress]").setValue("Testing 12-35");
+        $("#currentAddress").setValue("Testing 12-35");
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
-        $("[id=state]").click();
-        $("[id=stateCity-wrapper]").$(byText("Haryana")).click();
-        $("[id=city]").click();
-        $("[id=stateCity-wrapper").$(byText("Panipat")).click();
-        $("[id=submit]").click();
-        $("[id=example-modal-sizes-title-lg]").shouldHave(text("Thanks for submitting the form"));
+        $("#state").click();
+        $("#stateCity-wrapper").$(byText("Haryana")).click();
+        $("#city").click();
+        $("#stateCity-wrapper").$(byText("Panipat")).click();
+        $("#submit").click();
+        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+        $(".table-responsive").shouldHave(
+                text("Anastasiya Shpakova"),
+                text("test1@bk.ru"),
+                text("Female"),
+                text("9991002030"),
+                text("22 September,1987"),
+                text("Maths"),
+                text("Music"),
+                text("nature2.jpg"),
+                text("Testing 12-35"),
+                text("Haryana Panipat"));
         }
 
-    {
-        Configuration.holdBrowserOpen = true;
-        }
+        /*{
+        //Configuration.holdBrowserOpen = true;
+        }*/
         }
