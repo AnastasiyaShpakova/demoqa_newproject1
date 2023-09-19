@@ -13,9 +13,10 @@ public class FillFormTests {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
     }
-@Test
+
+    @Test
     void successfulFillFormTest() {
-            open("https://demoqa.com/automation-practice-form/");
+        open("/automation-practice-form");
         $("#firstName").setValue("Anastasiya");
         $("#lastName").setValue("Shpakova");
         $("#userEmail").setValue("test1@bk.ru");
@@ -48,9 +49,9 @@ public class FillFormTests {
                 text("nature2.jpg"),
                 text("Testing 12-35"),
                 text("Haryana Panipat"));
-        }
+    }
 
-        /*{
-        //Configuration.holdBrowserOpen = true;
-        }*/
-        }
+    /*{
+        Configuration.holdBrowserOpen = true;
+    }*/
+}
